@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\DestinationController;
+use App\Http\Controllers\OriginController;
+use App\Models\WeeklyPlan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('origins', [OriginController::class, 'index']);
+Route::get('destinations/{name}', [DestinationController::class, 'show']);
+
+
+
+Route::get('origins/{id}', [OriginController::class, 'show']);
+Route::get('terminals/{city}', [DestinationController::class, 'terminal']);
