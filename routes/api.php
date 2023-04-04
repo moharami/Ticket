@@ -25,6 +25,10 @@ Route::post('origins', [TravelController::class, 'index']);
 Route::get('destinations', [TravelController::class, 'destination']);
 Route::post('destinations', [TravelController::class, 'destination']);
 
+// Route3 - Terminals
+Route::get('terminals', [TravelController::class, 'terminals']);
+Route::post('terminals', [TravelController::class, 'terminals']);
+
 
 
 Route::get('origins/{id}', [TravelController::class, 'show']);

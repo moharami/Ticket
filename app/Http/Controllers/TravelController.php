@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\DestinationResource;
 use App\Http\Resources\OriginResource;
+use App\Http\Resources\TerminalResource;
 use App\Models\WeeklyPlan;
 use App\Repositories\WeeklyPlanRepositoryInterface;
 use Carbon\Traits\Week;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Collection;
+use PhpParser\Node\Expr\Array_;
 
 class TravelController extends Controller
 {
@@ -34,10 +37,15 @@ class TravelController extends Controller
         return DestinationResource::collection($this->weeklyPlanRepository->destinations($request->city));
     }
 
-    public function show($name)
+    /** show all termianl in one city
+     * @param Request $request
+     * @return AnonymousResourceCollection
+     */
+    public function terminals(Request $request)
     {
-        $data = WeeklyPlan::where('origin_city_id', $name)->get();
-        return OriginResource::collection($data);
-
+        $terminal_in_origin = $this->weeklyPlanRepository->terminals($request->city, false);
+        $terminal_in_destination = $this->weeklyPlanRepository->terminals($request->city, true);
+        return collect(array_merge($terminal_in_destination->toArray(), $terminal_in_origin->toArray()))->unique();
     }
+
 }

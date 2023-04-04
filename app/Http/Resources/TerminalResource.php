@@ -15,7 +15,8 @@ class TerminalResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'name' => $this->destination_terminal_id,
+            'city' => $this->destination_city_id,
+            'terminal' => $this->destination_terminal_id,
         ];
     }
 }
