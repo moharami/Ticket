@@ -21,12 +21,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('origins', [TravelController::class, 'index']);
 Route::post('origins', [TravelController::class, 'index']);
 
+// Route2 - Destination
+Route::get('destinations', [TravelController::class, 'destination']);
+Route::post('destinations', [TravelController::class, 'destination']);
+
+// Route3 - Terminals
+Route::get('terminals', [TravelController::class, 'terminals']);
+Route::post('terminals', [TravelController::class, 'terminals']);
 
 
-
-Route::get('destinations/{name}', [DestinationController::class, 'show']);
-
-
-
-Route::get('origins/{id}', [TravelController::class, 'show']);
-Route::get('terminals/{city}', [DestinationController::class, 'terminal']);

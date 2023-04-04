@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
 
-class WeeklyPlanTest extends TestCase
+class TravelTest extends TestCase
 {
     public function setUp(): void
     {
@@ -58,10 +58,7 @@ class WeeklyPlanTest extends TestCase
     }
 
 
-    /**
-     * A basic test example.
-     */
-    public function test_the_application_returns_a_successful_response(): void
+    public function test_get_all_origin_response(): void
     {
         $response = $this->get('/api/origins');
         $response->assertStatus(Response::HTTP_OK)
@@ -73,6 +70,52 @@ class WeeklyPlanTest extends TestCase
                     [
                         "city" => "isf"
                     ]
+                ]
+            ]);
+    }
+
+    public function test_get_all_destination_response(): void
+    {
+        $response = $this->get('/api/destinations?city=teh');
+        $response->assertStatus(Response::HTTP_OK)
+            ->assertExactJson([
+                "data" => [
+                    [
+                        "city" => "isf"
+                    ]
+                ]
+            ]);
+    }
+
+    public function test_post_all_destination_response(): void
+    {
+        $payload = ['city' => 'teh'];
+        $response = $this->post('/api/destinations', $payload);
+        $response->assertStatus(Response::HTTP_OK)
+            ->assertExactJson([
+                "data" => [
+                    [
+                        "city" => "isf"
+                    ]
+                ]
+            ]);
+    }
+
+
+    public function test_get_all_terminal(): void
+    {
+        $payload = ['city' => 'teh'];
+        $response = $this->post('/api/terminals', $payload);
+
+        $response->assertStatus(Response::HTTP_OK)
+            ->assertExactJson([
+                [
+                    "city" => "teh",
+                    "terminal" => "arg"
+                ],
+                [
+                    "city" => "teh",
+                    "terminal" => "jonob"
                 ]
             ]);
     }

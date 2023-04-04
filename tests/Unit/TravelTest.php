@@ -12,7 +12,7 @@ use Tests\TestCase;
 /**
  * @property $message
  */
-class WeeklyPlanTest extends TestCase
+class TravelTest extends TestCase
 {
     use RefreshDatabase;
     use HasFactory;
@@ -59,6 +59,18 @@ class WeeklyPlanTest extends TestCase
                 "bus_type" => "rrrrr",
                 "price" => 2000000,
             ],
+            [
+                "origin_city_id" => "tab",
+                "origin_terminal_id" => "sofe",
+                "destination_city_id" => "teh",
+                "destination_terminal_id" => "arg",
+                "moving_day" => 2,
+                "moving_hour" => 23000,
+                "duration_minute" => 120,
+                "capacity" => 35,
+                "bus_type" => "rrrrr",
+                "price" => 2000000,
+            ],
         ];
         foreach ($data as $item) {
             $plan = WeeklyPlan::create($item);
@@ -76,6 +88,51 @@ class WeeklyPlanTest extends TestCase
             [
                 "origin_city_id" => "isf"
             ],
+            [
+                "origin_city_id" => "tab"
+            ],
+        ];
+
+        $this->assertEquals($result, $expect);
+    }
+
+    public function test_get_all_destination_and_unique(): void
+    {
+        $result = (new WeeklyPlanRepository)->destinations('teh')->toArray();
+        $expect = [
+            [
+                "origin_city_id" => "isf"
+            ],
+            [
+                "origin_city_id" => "tab"
+            ],
+        ];
+
+        $this->assertEquals($result, $expect);
+    }
+
+
+    public function test_get_all_terminal_and_unique_destination(): void
+    {
+        $result = (new WeeklyPlanRepository)->terminals('teh')->toArray();
+        $expect = [
+            [
+                "city" => "teh",
+                "terminal" => "arg",
+            ]
+        ];
+
+        $this->assertEquals($result, $expect);
+    }
+
+    public function test_get_all_terminal_and_unique_origin(): void
+    {
+        $result = (new WeeklyPlanRepository)->terminals('teh',false)->toArray();
+        $expect = [
+            [
+                "city" => "teh",
+                "terminal" => "jonob",
+            ]
         ];
 
         $this->assertEquals($result, $expect);
