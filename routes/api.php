@@ -21,10 +21,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('origins', [TravelController::class, 'index']);
 Route::post('origins', [TravelController::class, 'index']);
 
-
-
-
-Route::get('destinations/{name}', [DestinationController::class, 'show']);
+// Route2 - Destination
+Route::get('destinations', [TravelController::class, 'destination']);
+Route::post('destinations', [TravelController::class, 'destination']);
 
 
 

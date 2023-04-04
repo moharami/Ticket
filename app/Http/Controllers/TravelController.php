@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\DestinationResource;
 use App\Http\Resources\OriginResource;
 use App\Models\WeeklyPlan;
 use App\Repositories\WeeklyPlanRepositoryInterface;
@@ -27,12 +28,10 @@ class TravelController extends Controller
         return OriginResource::collection($this->weeklyPlanRepository->origins());
     }
 
-    /** return all origins from weeklyplan
-     * @return AnonymousResourceCollection
-     */
-    public function index2()
+
+    public function destination(Request $request)
     {
-        return OriginResource::collection($this->weeklyPlanRepository->origins());
+        return DestinationResource::collection($this->weeklyPlanRepository->destinations($request->city));
     }
 
     public function show($name)

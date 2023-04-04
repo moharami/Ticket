@@ -8,4 +8,6 @@ interface WeeklyPlanRepositoryInterface
      * @return mixed
      */
     public function origins();
+
+    public function destinations($city);
 }
