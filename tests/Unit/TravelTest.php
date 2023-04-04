@@ -110,4 +110,31 @@ class TravelTest extends TestCase
 
         $this->assertEquals($result, $expect);
     }
+
+
+    public function test_get_all_terminal_and_unique_destination(): void
+    {
+        $result = (new WeeklyPlanRepository)->terminals('teh')->toArray();
+        $expect = [
+            [
+                "city" => "teh",
+                "terminal" => "arg",
+            ]
+        ];
+
+        $this->assertEquals($result, $expect);
+    }
+
+    public function test_get_all_terminal_and_unique_origin(): void
+    {
+        $result = (new WeeklyPlanRepository)->terminals('teh',false)->toArray();
+        $expect = [
+            [
+                "city" => "teh",
+                "terminal" => "jonob",
+            ]
+        ];
+
+        $this->assertEquals($result, $expect);
+    }
 }

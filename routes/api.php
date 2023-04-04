@@ -30,6 +30,3 @@ Route::get('terminals', [TravelController::class, 'terminals']);
 Route::post('terminals', [TravelController::class, 'terminals']);
 
 
-
-Route::get('origins/{id}', [TravelController::class, 'show']);
-Route::get('terminals/{city}', [DestinationController::class, 'terminal']);
