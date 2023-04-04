@@ -16,4 +16,13 @@ class WeeklyPlanRepository implements WeeklyPlanRepositoryInterface
     {
         return WeeklyPlan::query()->distinct()->whereNotNull('origin_city_id')->get(['origin_city_id']);
     }
+
+    /** extract all origin city to travel to this city
+     * @param $city
+     * @return mixed
+     */
+    public function destinations($city)
+    {
+        return WeeklyPlan::query()->where('destination_city_id', $city)->select('origin_city_id')->distinct()->get();
+    }
 }
