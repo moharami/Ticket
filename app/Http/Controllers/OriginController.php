@@ -4,14 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\OriginResource;
 use App\Models\WeeklyPlan;
+use App\Repositories\WeeklyPlanRepositoryInterface;
+use Carbon\Traits\Week;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class OriginController extends Controller
 {
+    /**
+     * @param WeeklyPlanRepositoryInterface $weeklyPlanRepository
+     */
+    public function __construct(public WeeklyPlanRepositoryInterface $weeklyPlanRepository)
+    {
+
+    }
+
+    /** return all origins from weeklyplan
+     * @return AnonymousResourceCollection
+     */
     public function index()
     {
-        $data = WeeklyPlan::select('origin_city_id')->distinct()->get();
-        return OriginResource::collection($data);
+        return OriginResource::collection($this->weeklyPlanRepository->origins());
     }
 
     public function show($name)
