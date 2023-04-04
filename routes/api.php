@@ -17,8 +17,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
+// Route1 - Origins
 Route::get('origins', [TravelController::class, 'index']);
+Route::post('origins', [TravelController::class, 'index']);
 
 
 

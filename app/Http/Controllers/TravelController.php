@@ -27,6 +27,14 @@ class TravelController extends Controller
         return OriginResource::collection($this->weeklyPlanRepository->origins());
     }
 
+    /** return all origins from weeklyplan
+     * @return AnonymousResourceCollection
+     */
+    public function index2()
+    {
+        return OriginResource::collection($this->weeklyPlanRepository->origins());
+    }
+
     public function show($name)
     {
         $data = WeeklyPlan::where('origin_city_id', $name)->get();
