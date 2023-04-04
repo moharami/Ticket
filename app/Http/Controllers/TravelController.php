@@ -9,7 +9,7 @@ use Carbon\Traits\Week;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
-class OriginController extends Controller
+class TravelController extends Controller
 {
     /**
      * @param WeeklyPlanRepositoryInterface $weeklyPlanRepository

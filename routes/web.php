@@ -1,9 +1,5 @@
 <?php
 
-use App\Http\Controllers\DestinationController;
-use App\Http\Controllers\OriginController;
-use App\Models\WeeklyPlan;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
