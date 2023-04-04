@@ -1,23 +1,14 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature;
 
 use App\Models\WeeklyPlan;
-use App\Repositories\WeeklyPlanRepository;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
 
-/**
- * @property $message
- */
-class WeeklyPlanTest extends TestCase
+class TravelTest extends TestCase
 {
-    use RefreshDatabase;
-    use HasFactory;
-
-
     public function setUp(): void
     {
         parent::setUp();
@@ -66,18 +57,47 @@ class WeeklyPlanTest extends TestCase
         }
     }
 
-    public function test_get_all_origin_and_unique(): void
-    {
-        $result = (new WeeklyPlanRepository)->origins()->toArray();
-        $expect = [
-            [
-                "origin_city_id" => "teh"
-            ],
-            [
-                "origin_city_id" => "isf"
-            ],
-        ];
 
-        $this->assertEquals($result, $expect);
+    public function test_get_all_origin_response(): void
+    {
+        $response = $this->get('/api/origins');
+        $response->assertStatus(Response::HTTP_OK)
+            ->assertExactJson([
+                "data" => [
+                    [
+                        "city" => "teh"
+                    ],
+                    [
+                        "city" => "isf"
+                    ]
+                ]
+            ]);
+    }
+
+    public function test_get_all_destination_response(): void
+    {
+        $response = $this->get('/api/destinations?city=teh');
+        $response->assertStatus(Response::HTTP_OK)
+            ->assertExactJson([
+                "data" => [
+                    [
+                        "city" => "isf"
+                    ]
+                ]
+            ]);
+    }
+
+    public function test_post_all_destination_response(): void
+    {
+        $payload = ['city' => 'teh'];
+        $response = $this->post('/api/destinations',$payload);
+        $response->assertStatus(Response::HTTP_OK)
+            ->assertExactJson([
+                "data" => [
+                    [
+                        "city" => "isf"
+                    ]
+                ]
+            ]);
     }
 }

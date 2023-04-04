@@ -1,14 +1,23 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Unit;
 
 use App\Models\WeeklyPlan;
-use Illuminate\Http\Response;
+use App\Repositories\WeeklyPlanRepository;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
 
-class WeeklyPlanTest extends TestCase
+/**
+ * @property $message
+ */
+class TravelTest extends TestCase
 {
+    use RefreshDatabase;
+    use HasFactory;
+
+
     public function setUp(): void
     {
         parent::setUp();
@@ -50,6 +59,18 @@ class WeeklyPlanTest extends TestCase
                 "bus_type" => "rrrrr",
                 "price" => 2000000,
             ],
+            [
+                "origin_city_id" => "tab",
+                "origin_terminal_id" => "sofe",
+                "destination_city_id" => "teh",
+                "destination_terminal_id" => "arg",
+                "moving_day" => 2,
+                "moving_hour" => 23000,
+                "duration_minute" => 120,
+                "capacity" => 35,
+                "bus_type" => "rrrrr",
+                "price" => 2000000,
+            ],
         ];
         foreach ($data as $item) {
             $plan = WeeklyPlan::create($item);
@@ -57,23 +78,36 @@ class WeeklyPlanTest extends TestCase
         }
     }
 
-
-    /**
-     * A basic test example.
-     */
-    public function test_the_application_returns_a_successful_response(): void
+    public function test_get_all_origin_and_unique(): void
     {
-        $response = $this->get('/api/origins');
-        $response->assertStatus(Response::HTTP_OK)
-            ->assertExactJson([
-                "data" => [
-                    [
-                        "city" => "teh"
-                    ],
-                    [
-                        "city" => "isf"
-                    ]
-                ]
-            ]);
+        $result = (new WeeklyPlanRepository)->origins()->toArray();
+        $expect = [
+            [
+                "origin_city_id" => "teh"
+            ],
+            [
+                "origin_city_id" => "isf"
+            ],
+            [
+                "origin_city_id" => "tab"
+            ],
+        ];
+
+        $this->assertEquals($result, $expect);
+    }
+
+    public function test_get_all_destination_and_unique(): void
+    {
+        $result = (new WeeklyPlanRepository)->destinations('teh')->toArray();
+        $expect = [
+            [
+                "origin_city_id" => "isf"
+            ],
+            [
+                "origin_city_id" => "tab"
+            ],
+        ];
+
+        $this->assertEquals($result, $expect);
     }
 }
