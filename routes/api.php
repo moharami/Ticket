@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DestinationController;
+use App\Http\Controllers\OriginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,8 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 
+Route::get('origins', [OriginController::class, 'index']);
+
+
+
+
+Route::get('destinations/{name}', [DestinationController::class, 'show']);
+
+
+
+Route::get('origins/{id}', [OriginController::class, 'show']);
+Route::get('terminals/{city}', [DestinationController::class, 'terminal']);

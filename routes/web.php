@@ -17,10 +17,3 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('origins', [OriginController::class, 'index']);
-Route::get('destinations/{name}', [DestinationController::class, 'show']);
-
-
-
-Route::get('origins/{id}', [OriginController::class, 'show']);
-Route::get('terminals/{city}', [DestinationController::class, 'terminal']);
