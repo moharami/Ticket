@@ -10,6 +10,7 @@ use App\Repositories\TripRepository;
 use App\Repositories\TripRepositoryInterface;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 
 class ReserveController extends Controller
@@ -46,4 +47,5 @@ class ReserveController extends Controller
         $tripRepository->cancle_reserve($request->trip_id);
         return response()->json(['message' => ' reserve cancled successfull'], 200);
     }
+    
 }

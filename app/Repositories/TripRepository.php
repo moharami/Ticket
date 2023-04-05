@@ -4,8 +4,10 @@ namespace App\Repositories;
 
 use App\Models\Reserve;
 use App\Models\Trip;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use mysql_xdevapi\Exception;
 use function PHPUnit\Framework\throwException;
@@ -61,9 +63,19 @@ class TripRepository implements TripRepositoryInterface
     }
 
 
+    public function cancleExpiredReserve()
+    {
+        $minutes = Config::get('ticket.minute_cancle');
+        $reservers = Reserve::where('created_at', '<', Carbon::now()->subMinute($minutes))->get();
+        foreach ($reservers as $reserve) {
+            $this->cancle_reserve($reserve->id);
+        }
+        return count($reservers) . 'reserved cancled ';
+
+    }
+
     public function cancle_reserve($reserve_id)
     {
-
         DB::transaction(function () use ($reserve_id) {
             $reserve = Reserve::findOrFail($reserve_id);
             $seat = $this->cancle($reserve_id);
