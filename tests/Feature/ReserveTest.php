@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Reserve;
 use App\Models\Trip;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -25,6 +26,8 @@ class ReserveTest extends TestCase
             'is_available' => true
         ]);
 
+        Reserve::create(['trip_id' => 1, 'count' => 2, 'seat_numbers' => json_encode([1, 2])]);
+
     }
 
     /**
@@ -43,5 +46,20 @@ class ReserveTest extends TestCase
         $payload = ['trip_id' => 1, 'count' => 3, 'seat_numbers' => json_encode([1, 2])];
         $response = $this->post('/api/reserve', $payload);
         $response->assertStatus(Response::HTTP_BAD_REQUEST);
+    }
+
+    public function test_cancle_reserve(): void
+    {
+        $payload = ['trip_id' => 1];
+        $response = $this->post('/api/cancle', $payload);
+        $response->assertStatus(Response::HTTP_OK);
+    }
+
+
+    public function test_cancle_reserve_not_exist_record(): void
+    {
+        $payload = ['trip_id' => 20];
+        $response = $this->post('/api/cancle', $payload);
+        $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 }

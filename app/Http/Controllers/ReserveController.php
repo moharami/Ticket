@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CancleRequest;
 use App\Http\Requests\ReserveRequest;
 use App\Models\Reserve;
 use App\Models\Trip;
 use App\Repositories\TripRepository;
+use App\Repositories\TripRepositoryInterface;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 
 class ReserveController extends Controller
 {
-    public function index(ReserveRequest $request, TripRepository $tripRepository)
+    public function index(ReserveRequest $request, TripRepositoryInterface $tripRepository)
     {
         //validate
         $request->seat_numbers = json_decode($request->seat_numbers);
@@ -38,4 +41,11 @@ class ReserveController extends Controller
 
         return true;
     }
+
+    public function cancle(CancleRequest $request, TripRepositoryInterface $tripRepository)
+    {
+        $tripRepository->cancle_reserve($request->trip_id);
+        return response()->json(['message' => ' reserve cancled successfull'], 200);
+    }
+    
 }
