@@ -14,9 +14,9 @@ return new class extends Migration {
             $table->id();
             $table->integer('weekly_plan_id');
             $table->timestamp('moving_date');
-            $table->integer('total_capacity');
-            $table->integer('remain_capacity');
-            $table->boolean('available')->default(true);
+            $table->json('available_seats');
+            $table->json('reserve_seats')->nullable();
+            $table->boolean('is_available')->default(true);
             $table->timestamps();
         });
     }
