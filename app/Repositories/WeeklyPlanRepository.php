@@ -29,6 +29,12 @@ class WeeklyPlanRepository implements WeeklyPlanRepositoryInterface
         return $this->returnResult($result);
     }
 
+    /** search for terminal base on city
+     * base on destination flag it customise field for search
+     * @param $city
+     * @param $destination
+     * @return array|Collection|mixed
+     */
     public function terminals($city, $destination = true)
     {
         $city_var = $destination ? 'destination_city_id' : 'origin_city_id';
@@ -42,11 +48,25 @@ class WeeklyPlanRepository implements WeeklyPlanRepositoryInterface
 
     }
 
+    /** if we dont find any record we return an exception
+     * @param Collection|array $result
+     * @return array|Collection
+     */
     public function returnResult(Collection|array $result)
     {
         if (count($result) > 0) {
             return $result;
         }
         throw new ModelNotFoundException('Not Found Resource');
+    }
+
+    /** search path between two city
+     * @param $origin
+     * @param $destination
+     * @return mixed
+     */
+    public function search($origin, $destination)
+    {
+        return WeeklyPlan::whereRaw('(origin_city_id = ? or origin_terminal_id = ? ) and (destination_city_id = ? or destination_terminal_id = ? )', [$origin,$origin, $destination, $destination])->get();
     }
 }

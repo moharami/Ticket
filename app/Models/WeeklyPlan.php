@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class WeeklyPlan extends Model
 {
@@ -21,4 +22,9 @@ class WeeklyPlan extends Model
         "bus_type",
         "price"
     ];
+
+    public function Trips(): HasMany
+    {
+        return $this->hasMany(Trip::class);
+    }
 }
