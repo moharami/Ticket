@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\TravelController;
+use App\Http\Controllers\TripController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,4 +31,8 @@ Route::get('terminals', [TravelController::class, 'terminals']);
 Route::post('terminals', [TravelController::class, 'terminals']);
 
 
-//Route::fallback();
+// Route4 - Search
+Route::get('search', [TripController::class, 'search']);
+//Route::post('terminals', [TravelController::class, 'terminals']);
+
+

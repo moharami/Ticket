@@ -49,4 +49,14 @@ class WeeklyPlanRepository implements WeeklyPlanRepositoryInterface
         }
         throw new ModelNotFoundException('Not Found Resource');
     }
+
+    /** search path between two city
+     * @param $origin
+     * @param $destination
+     * @return mixed
+     */
+    public function search($origin, $destination)
+    {
+        return WeeklyPlan::whereRaw('(origin_city_id = ? or origin_terminal_id = ? ) and (destination_city_id = ? or destination_terminal_id = ? )', [$origin,$origin, $destination, $destination])->get();
+    }
 }
