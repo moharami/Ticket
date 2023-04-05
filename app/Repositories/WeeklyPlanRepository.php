@@ -29,6 +29,12 @@ class WeeklyPlanRepository implements WeeklyPlanRepositoryInterface
         return $this->returnResult($result);
     }
 
+    /** search for terminal base on city
+     * base on destination flag it customise field for search
+     * @param $city
+     * @param $destination
+     * @return array|Collection|mixed
+     */
     public function terminals($city, $destination = true)
     {
         $city_var = $destination ? 'destination_city_id' : 'origin_city_id';
@@ -42,6 +48,10 @@ class WeeklyPlanRepository implements WeeklyPlanRepositoryInterface
 
     }
 
+    /** if we dont find any record we return an exception
+     * @param Collection|array $result
+     * @return array|Collection
+     */
     public function returnResult(Collection|array $result)
     {
         if (count($result) > 0) {

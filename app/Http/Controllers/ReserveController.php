@@ -9,6 +9,7 @@ use App\Models\Trip;
 use App\Repositories\TripRepository;
 use App\Repositories\TripRepositoryInterface;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
@@ -31,6 +32,11 @@ class ReserveController extends Controller
 
     }
 
+    /** check seats is avaible for reserve
+     * @param $seat_numbers
+     * @param $available_seats
+     * @return true
+     */
     private function is_availableSeat($seat_numbers, $available_seats)
     {
         foreach ($seat_numbers as $seat) {
@@ -42,10 +48,15 @@ class ReserveController extends Controller
         return true;
     }
 
+    /** cancle one reserve
+     * @param CancleRequest $request
+     * @param TripRepositoryInterface $tripRepository
+     * @return JsonResponse
+     */
     public function cancle(CancleRequest $request, TripRepositoryInterface $tripRepository)
     {
         $tripRepository->cancle_reserve($request->trip_id);
         return response()->json(['message' => ' reserve cancled successfull'], 200);
     }
-    
+
 }
