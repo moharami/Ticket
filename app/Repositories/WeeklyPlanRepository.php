@@ -35,4 +35,14 @@ class WeeklyPlanRepository implements WeeklyPlanRepositoryInterface
             ->select([$city_var . ' as city', $terminal_var . ' as terminal'])
             ->get();
     }
+
+    /** search path between two city
+     * @param $origin
+     * @param $destination
+     * @return mixed
+     */
+    public function search($origin, $destination)
+    {
+        return WeeklyPlan::whereRaw('(origin_city_id = ? or origin_terminal_id = ? ) and (destination_city_id = ? or destination_terminal_id = ? )', [$origin,$origin, $destination, $destination])->get();
+    }
 }

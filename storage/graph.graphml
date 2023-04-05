@@ -71,7 +71,7 @@ moving_date
 arrive_date
 total_capacity
 remain_capacity
-
+available
 
 <y:LabelModel><y:ErdAttributesNodeLabelModel/></y:LabelModel><y:ModelParameter><y:ErdAttributesNodeLabelModelParameter/></y:ModelParameter></y:NodeLabel>
           <y:StyleProperties>
