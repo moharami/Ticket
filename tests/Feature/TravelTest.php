@@ -87,6 +87,12 @@ class TravelTest extends TestCase
             ]);
     }
 
+    public function test_get_all_destination_responses_not_found(): void
+    {
+        $response = $this->get('/api/destinations?city=tehh');
+        $response->assertStatus(Response::HTTP_NOT_FOUND);
+    }
+
     public function test_post_all_destination_response(): void
     {
         $payload = ['city' => 'teh'];
@@ -99,6 +105,13 @@ class TravelTest extends TestCase
                     ]
                 ]
             ]);
+    }
+
+    public function test_post_all_destination_response_not_found(): void
+    {
+        $payload = ['city' => 'tehh'];
+        $response = $this->post('/api/destinations', $payload);
+        $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 
 
@@ -118,5 +131,14 @@ class TravelTest extends TestCase
                     "terminal" => "jonob"
                 ]
             ]);
+    }
+
+
+    public function test_get_all_terminal_not_found(): void
+    {
+        $payload = ['city' => 'tehh'];
+        $response = $this->post('/api/terminals', $payload);
+
+        $response->assertStatus(Response::HTTP_NOT_FOUND);
     }
 }
