@@ -41,4 +41,8 @@ Route::get('search', [TripController::class, 'search']);
 Route::post('reserve', [ReserveController::class, 'index']);
 
 
+// Route6 - Cancle Reserve
+Route::post('cancle', [ReserveController::class, 'cancle']);
+
+
 

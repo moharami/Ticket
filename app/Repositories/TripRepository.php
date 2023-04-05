@@ -7,6 +7,7 @@ use App\Models\Trip;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
+use mysql_xdevapi\Exception;
 use function PHPUnit\Framework\throwException;
 
 class TripRepository implements TripRepositoryInterface
@@ -58,4 +59,38 @@ class TripRepository implements TripRepositoryInterface
         });
 
     }
+
+
+    public function cancle_reserve($reserve_id)
+    {
+
+        DB::transaction(function () use ($reserve_id) {
+            $reserve = Reserve::findOrFail($reserve_id);
+            $seat = $this->cancle($reserve_id);
+            $this->undo_reserve($reserve->trip_id, $seat);
+
+        });
+    }
+
+
+    public function cancle($reserve_id)
+    {
+        $trip = Reserve::findOrFail($reserve_id);
+        $trip->cancle = true;
+        $trip->save();
+        return $trip->seat_numbers;
+    }
+
+    public function undo_reserve($trip_id, $seats)
+    {
+        try {
+            $trip = Trip::findOrFail($trip_id);
+            $trip->available_seats = collect($trip->available_seats)->merge($seats)->unique();
+            $trip->reserve_seats = $available = collect($trip->reserve_seats)->diff($seats);
+            $trip->save();
+        } catch (\Exception $exception) {
+            throw new Exception('not saved');
+        }
+    }
+
 }
