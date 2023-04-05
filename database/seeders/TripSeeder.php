@@ -16,9 +16,9 @@ class TripSeeder extends Seeder
         Trip::create([
             'weekly_plan_id' => 1,
             'moving_date' => '2023-04-04 17:00:00',
-            'total_capacity' => 40,
-            'remain_capacity' => 40,
-            'available' => true
+            'available_seats' => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+            'reserve_seats' => [19, 20],
+            'is_available' => true
         ]);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DestinationController;
+use App\Http\Controllers\ReserveController;
 use App\Http\Controllers\TravelController;
 use App\Http\Controllers\TripController;
 use Illuminate\Http\Request;
@@ -34,5 +35,10 @@ Route::post('terminals', [TravelController::class, 'terminals']);
 // Route4 - Search
 Route::get('search', [TripController::class, 'search']);
 //Route::post('terminals', [TravelController::class, 'terminals']);
+
+
+// Route5 - Reserve
+Route::post('reserve', [ReserveController::class, 'index']);
+
 
 
