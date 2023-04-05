@@ -16,4 +16,6 @@ interface WeeklyPlanRepositoryInterface
      * @return mixed
      */
     public function terminals($city);
+
+    public function search($origin, $destination);
 }

@@ -26,12 +26,23 @@ class TripRepository implements TripRepositoryInterface
         return Trip::query()->where('moving_date', date('Y-m-d H:i:s', $time))->get();
     }
 
+    /** based on id provided, find or fail trip
+     * @param $id
+     * @return mixed
+     */
     public function findTrip($id)
     {
         return Trip::findOrFail($id);
     }
 
 
+    /** recive an array of seats and put this seat in reserve mode
+     * and remove seats from availbale_seat so that anthor request can't
+     * reserve this seats
+     * @param $trip_id
+     * @param $seat_numbers
+     * @return void
+     */
     public function saveReserve($trip_id, $seat_numbers)
     {
         try {
@@ -47,6 +58,13 @@ class TripRepository implements TripRepositoryInterface
     }
 
 
+    /** first it put seat numbers unavailbale
+     * then create one record in reserve table
+     * @param $trip_id
+     * @param $count
+     * @param $seat_numbers
+     * @return mixed
+     */
     public function do_reserve($trip_id, $count, $seat_numbers)
     {
         return DB::transaction(function () use ($trip_id, $count, $seat_numbers) {
@@ -54,7 +72,6 @@ class TripRepository implements TripRepositoryInterface
             return Reserve::create([
                 'trip_id' => $trip_id,
                 'count' => $count,
-
                 'seat_numbers' => $seat_numbers
             ])->id;
 
@@ -63,6 +80,11 @@ class TripRepository implements TripRepositoryInterface
     }
 
 
+    /** check all of reserve row and if the time passed
+     * more than 15 minute( we put it in config)
+     * turn the reserve to cancle
+     * @return string
+     */
     public function cancleExpiredReserve()
     {
         $minutes = Config::get('ticket.minute_cancle');
@@ -74,6 +96,11 @@ class TripRepository implements TripRepositoryInterface
 
     }
 
+    /** base on id provided, first turn reserve to cancle
+     * then make every seats in this reserve to available seats
+     * @param $reserve_id
+     * @return void
+     */
     public function cancle_reserve($reserve_id)
     {
         DB::transaction(function () use ($reserve_id) {
@@ -85,6 +112,10 @@ class TripRepository implements TripRepositoryInterface
     }
 
 
+    /** turn cancle flag to true
+     * @param $reserve_id
+     * @return mixed
+     */
     public function cancle($reserve_id)
     {
         $trip = Reserve::findOrFail($reserve_id);
@@ -93,6 +124,13 @@ class TripRepository implements TripRepositoryInterface
         return $trip->seat_numbers;
     }
 
+    /** recive one trip id and array of seats
+     * first remove seats from reserve and make it free
+     * then put this seats to available seats
+     * @param $trip_id
+     * @param $seats
+     * @return void
+     */
     public function undo_reserve($trip_id, $seats)
     {
         try {
