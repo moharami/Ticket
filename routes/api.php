@@ -30,3 +30,4 @@ Route::get('terminals', [TravelController::class, 'terminals']);
 Route::post('terminals', [TravelController::class, 'terminals']);
 
 
+//Route::fallback();

@@ -8,10 +8,12 @@ use App\Http\Resources\TerminalResource;
 use App\Models\WeeklyPlan;
 use App\Repositories\WeeklyPlanRepositoryInterface;
 use Carbon\Traits\Week;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Collection;
 use PhpParser\Node\Expr\Array_;
+use function PHPUnit\Framework\isEmpty;
 
 class TravelController extends Controller
 {
