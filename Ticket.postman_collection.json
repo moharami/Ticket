@@ -1,0 +1,353 @@
+{
+	"info": {
+		"_postman_id": "7fe0b593-4a91-422e-8e9b-6d4c40b6c8cf",
+		"name": "Ticket",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26201207"
+	},
+	"item": [
+		{
+			"name": "01- List of Origin(Get)",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/origins",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"origins"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "01- List of Origin (Post)",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/origins",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"origins"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "02- Destination",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/destinations?city=tab",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"destinations"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "tab"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "02- Destination",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/destinations?city=tab",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"destinations"
+							],
+							"query": [
+								{
+									"key": "city",
+									"value": "tab"
+								}
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "02- Destination (Post)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "city",
+							"value": "isf",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/destinations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"destinations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "03 - Terminals",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/terminals?city=masha",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"terminals"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "masha"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "03 - Terminals (Post)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/terminals?city=masha",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"terminals"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "masha"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "04 - search",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/search?origin=tab&destination=sofe&time=1680615000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"search"
+					],
+					"query": [
+						{
+							"key": "origin",
+							"value": "tab"
+						},
+						{
+							"key": "destination",
+							"value": "sofe"
+						},
+						{
+							"key": "time",
+							"value": "1680615000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "05- Reserve",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "trip_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "count",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "seat_numbers",
+							"value": "[1,2,3]",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/reserve",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"reserve"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "06 - cancle",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "trip_id",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/cancle",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"cancle"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
